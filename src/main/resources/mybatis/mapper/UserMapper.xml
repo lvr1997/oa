@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvr.springbootmanger.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.lr.oa.oa.entity.User">
+    <id column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="ANSWER" jdbcType="VARCHAR" property="answer" />
+    <result column="CHECK_DATE" jdbcType="TIMESTAMP" property="checkDate" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PASS_WORD" jdbcType="VARCHAR" property="passWord" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="QQ_NUM" jdbcType="VARCHAR" property="qqNum" />
+    <result column="QUESTION" jdbcType="SMALLINT" property="question" />
+    <result column="SEX" jdbcType="SMALLINT" property="sex" />
+    <result column="STATUS" jdbcType="SMALLINT" property="status" />
+    <result column="TEL" jdbcType="VARCHAR" property="tel" />
+    <result column="CHECKER" jdbcType="VARCHAR" property="checker" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="DEPT_ID" jdbcType="BIGINT" property="deptId" />
+    <result column="JOB_CODE" jdbcType="VARCHAR" property="jobCode" />
+    <result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
+    <result column="delFlag" jdbcType="VARCHAR" property="delflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    USER_ID, ANSWER, CHECK_DATE, CREATE_DATE, EMAIL, MODIFY_DATE, NAME, PASS_WORD, PHONE, 
+    QQ_NUM, QUESTION, SEX, STATUS, TEL, CHECKER, CREATER, DEPT_ID, JOB_CODE, MODIFIER, 
+    delFlag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oa_id_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from oa_id_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lr.oa.oa.entity.User">
+    insert into oa_id_user (USER_ID, ANSWER, CHECK_DATE, 
+      CREATE_DATE, EMAIL, MODIFY_DATE, 
+      NAME, PASS_WORD, PHONE, 
+      QQ_NUM, QUESTION, SEX, 
+      STATUS, TEL, CHECKER, 
+      CREATER, DEPT_ID, JOB_CODE, 
+      MODIFIER, delFlag)
+    values (#{userId,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, #{checkDate,jdbcType=TIMESTAMP}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{qqNum,jdbcType=VARCHAR}, #{question,jdbcType=SMALLINT}, #{sex,jdbcType=SMALLINT}, 
+      #{status,jdbcType=SMALLINT}, #{tel,jdbcType=VARCHAR}, #{checker,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, #{jobCode,jdbcType=VARCHAR}, 
+      #{modifier,jdbcType=VARCHAR}, #{delflag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lr.oa.oa.entity.User">
+    insert into oa_id_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="answer != null">
+        ANSWER,
+      </if>
+      <if test="checkDate != null">
+        CHECK_DATE,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="modifyDate != null">
+        MODIFY_DATE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="passWord != null">
+        PASS_WORD,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="qqNum != null">
+        QQ_NUM,
+      </if>
+      <if test="question != null">
+        QUESTION,
+      </if>
+      <if test="sex != null">
+        SEX,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="tel != null">
+        TEL,
+      </if>
+      <if test="checker != null">
+        CHECKER,
+      </if>
+      <if test="creater != null">
+        CREATER,
+      </if>
+      <if test="deptId != null">
+        DEPT_ID,
+      </if>
+      <if test="jobCode != null">
+        JOB_CODE,
+      </if>
+      <if test="modifier != null">
+        MODIFIER,
+      </if>
+      <if test="delflag != null">
+        delFlag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null">
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null">
+        #{checkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNum != null">
+        #{qqNum,jdbcType=VARCHAR},
+      </if>
+      <if test="question != null">
+        #{question,jdbcType=SMALLINT},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null">
+        #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null">
+        #{deptId,jdbcType=BIGINT},
+      </if>
+      <if test="jobCode != null">
+        #{jobCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lr.oa.oa.entity.User">
+    update oa_id_user
+    <set>
+      <if test="answer != null">
+        ANSWER = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null">
+        CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null">
+        MODIFY_DATE = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        PASS_WORD = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNum != null">
+        QQ_NUM = #{qqNum,jdbcType=VARCHAR},
+      </if>
+      <if test="question != null">
+        QUESTION = #{question,jdbcType=SMALLINT},
+      </if>
+      <if test="sex != null">
+        SEX = #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="tel != null">
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null">
+        CHECKER = #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null">
+        DEPT_ID = #{deptId,jdbcType=BIGINT},
+      </if>
+      <if test="jobCode != null">
+        JOB_CODE = #{jobCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null">
+        MODIFIER = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        delFlag = #{delflag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lr.oa.oa.entity.User">
+    update oa_id_user
+    set ANSWER = #{answer,jdbcType=VARCHAR},
+      CHECK_DATE = #{checkDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      MODIFY_DATE = #{modifyDate,jdbcType=TIMESTAMP},
+      NAME = #{name,jdbcType=VARCHAR},
+      PASS_WORD = #{passWord,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      QQ_NUM = #{qqNum,jdbcType=VARCHAR},
+      QUESTION = #{question,jdbcType=SMALLINT},
+      SEX = #{sex,jdbcType=SMALLINT},
+      STATUS = #{status,jdbcType=SMALLINT},
+      TEL = #{tel,jdbcType=VARCHAR},
+      CHECKER = #{checker,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=BIGINT},
+      JOB_CODE = #{jobCode,jdbcType=VARCHAR},
+      MODIFIER = #{modifier,jdbcType=VARCHAR},
+      delFlag = #{delflag,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>
