@@ -43,6 +43,10 @@ public class User {
 
     private String delflag;
 
+    private Dept dept;
+    private Job job;
+
+
     public String getUserId() {
         return userId;
     }
@@ -201,5 +205,21 @@ public class User {
 
     public void setDelflag(String delflag) {
         this.delflag = delflag == null ? null : delflag.trim();
+    }
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
     }
 }

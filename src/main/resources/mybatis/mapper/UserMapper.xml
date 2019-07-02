@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lvr.springbootmanger.dao.UserMapper">
+<mapper namespace="com.lr.oa.oa.dao.UserMapper">
   <resultMap id="BaseResultMap" type="com.lr.oa.oa.entity.User">
     <id column="USER_ID" jdbcType="VARCHAR" property="userId" />
     <result column="ANSWER" jdbcType="VARCHAR" property="answer" />
@@ -22,7 +22,24 @@
     <result column="JOB_CODE" jdbcType="VARCHAR" property="jobCode" />
     <result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
     <result column="delFlag" jdbcType="VARCHAR" property="delflag" />
+    <association property="dept" javaType="com.lr.oa.oa.entity.Dept">
+      <id column="ID" jdbcType="BIGINT" property="id"/>
+      <result column="NAME" jdbcType="VARCHAR" property="name"/>
+    </association>
+
+    <association property="job" javaType="com.lr.oa.oa.entity.Job">
+      <id column="CODE" jdbcType="VARCHAR" property="code"/>
+      <result column="NAME" jdbcType="VARCHAR" property="name"/>
+    </association>
   </resultMap>
+    <select id="selectByUserAndPass"   resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  oa_id_user
+
+      where USER_ID=#{userId} and   PASS_WORD=#{passWord}
+    </select>
+
   <sql id="Base_Column_List">
     USER_ID, ANSWER, CHECK_DATE, CREATE_DATE, EMAIL, MODIFY_DATE, NAME, PASS_WORD, PHONE, 
     QQ_NUM, QUESTION, SEX, STATUS, TEL, CHECKER, CREATER, DEPT_ID, JOB_CODE, MODIFIER, 

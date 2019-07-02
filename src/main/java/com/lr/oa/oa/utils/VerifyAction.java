@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.lr.oa.oa.utils.constant.ConstantUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,7 +35,7 @@ public class VerifyAction{
 	/** 定义字体对象 */
 	private static Font font = new Font("宋体", Font.BOLD, 18);
 	
-	@RequestMapping("/createCode.jspx")
+	@RequestMapping("/createCode")
 	public void createImg(HttpServletResponse response,HttpSession session) throws IOException{
 		
 		/** 设置响应的内容类型 */
@@ -81,7 +82,7 @@ public class VerifyAction{
 		}
 		System.out.println(code);
 		//验证码生成好之后需要存放在session中
-		session.setAttribute(code, code);
+		session.setAttribute(ConstantUtils.VERIFY_CODE, code);
 		/** 消毁画笔 */
 		g.dispose();
 		/** 输出     将生成好的图片响应至浏览器*/

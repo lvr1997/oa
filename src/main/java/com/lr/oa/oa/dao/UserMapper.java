@@ -1,6 +1,7 @@
-package com.lvr.springbootmanger.dao;
+package com.lr.oa.oa.dao;
 
 import com.lr.oa.oa.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int deleteByPrimaryKey(String userId);
@@ -14,4 +15,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    User  selectByUserAndPass(@Param("userId") String userId, @Param("passWord") String passWord);
 }

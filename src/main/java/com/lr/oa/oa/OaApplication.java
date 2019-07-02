@@ -1,8 +1,10 @@
 package com.lr.oa.oa;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@MapperScan("com.lr.oa.oa.dao")
 @SpringBootApplication
 public class OaApplication {
 

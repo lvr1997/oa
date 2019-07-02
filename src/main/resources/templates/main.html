@@ -1,17 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html> 
 <head> 
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <title>捷途软件--智能办公</title> 
-<link href="${ctx}/css/base.css" rel="stylesheet">
-<link href="${ctx}/css/platform.css" rel="stylesheet">
-<link rel="stylesheet" href="${ctx}/resources/easyUI/easyui.css">
-<script type="text/javascript" src="${ctx }/resources/jquery/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="${ctx }/resources/jquery/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="${ctx}/resources/easyUI/jquery.easyui.min.js"></script>
+<link href="/css/base.css" rel="stylesheet">
+<link href="/css/platform.css" rel="stylesheet">
+<link rel="stylesheet" href="/easyUI/easyui.css">
+<script type="text/javascript" src="/jquery/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="/easyUI/jquery.easyui.min.js"></script>
  <!-- <script type="text/javascript" src="js/menu.js"></script> -->
-<script type="text/javascript" src="${ctx}/resources/main.js"></script>
+<script type="text/javascript" src="/main.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$('#tt').tabs({
@@ -42,7 +41,7 @@
     		$('#tt').tabs('add',{
     			id:id,
     			title: name,
-    			content: '<div style="width:100%;height:100%;"><iframe class="page-iframe" src="${ctx}'+url+'" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe></div>',
+    			content: '<div style="width:100%;height:100%;"><iframe class="page-iframe" src="/'+url+'" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe></div>',
     			closable: true
     		});
     	}
@@ -92,7 +91,7 @@
     <div class="container">
         <div id="pf-hd">
            <div class="pf-logo"">
-                <img  src="${ctx}/images/main/main_logo.png" alt="logo">
+                <img  src="/images/main/main_logo.png" alt="logo">
            </div>
             
             <div class="pf-nav-wrap">
@@ -116,9 +115,9 @@
 
             <div class="pf-user">
                 <div class="pf-user-photo">
-                    <img style="width: 40px;height: 40px;" src="${ctx}/images/main/xxxx.jpg" alt="">
+                    <img style="width: 40px;height: 40px;" src="/images/main/user.png" alt="">
                 </div>
-                <h4 class="pf-user-name ellipsis">XXX</h4>
+                <h4 class="pf-user-name ellipsis">${(session_user.name)!}</h4>
                 <i class="iconfont xiala">&#xe607;</i>
 
                 <div class="pf-user-panel">
@@ -150,9 +149,22 @@
                 </h2>
 				<!-- 展示系统左侧权限树  -->
                 <ul class="sider-nav" id="sider-nav">
-                  	  
+                    <li>
+                        <a href="javascript:;" >
+                            <span class="iconfont sider-nav-icon">&#xe611;</span>
+                            <span class="sider-nav-title"></span><#--${userModule.firstModule.name}-->
+                            <i class="iconfont">&#xe642;</i>
+                        </a>
+                        <ul class="sider-nav-s">
+
+                                <li><a href="javascript"</a>用户管理</li>
+                              <li><a href="javascript"</a>角色管理</li>
+                                <li><a href="javascript"</a>请假管理</li>
+
+                        </ul>
+                    </li>
                   	  	    
-                  	  	    <c:forEach items="${userPopedomModules}" var="userModule">
+                  	  <#--	    <c:forEach items="${userPopedomModules}" var="userModule">
                   	  	    	<li>
 		                  	  	    <a href="javascript:;" >
 			                            <span class="iconfont sider-nav-icon">&#xe611;</span>
@@ -165,7 +177,7 @@
 			                       		</c:forEach>
 			                        </ul>
                   	  	        </li>
-                  	  	    </c:forEach>
+                  	  	    </c:forEach>-->
 	                      
                         
                  </ul> 
@@ -175,7 +187,7 @@
             <div id="pf-page">
                 <div class="easyui-tabs" id="tt" style="width:100%;height:100%;">
                   <div title="当前用户" id="user" style="padding:10px 5px 5px 10px;">
-                    	<iframe class="page-iframe" src="${ctx}/oa/home.jspx" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
+                    	<iframe class="page-iframe" src="/user/showInfo" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                   </div>
                 </div>
             </div>

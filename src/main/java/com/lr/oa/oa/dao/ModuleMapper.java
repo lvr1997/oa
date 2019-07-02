@@ -1,4 +1,4 @@
-package com.lvr.springbootmanger.dao;
+package com.lr.oa.oa.dao;
 
 import com.lr.oa.oa.entity.Module;
 
