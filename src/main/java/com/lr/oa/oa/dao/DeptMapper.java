@@ -2,6 +2,9 @@ package com.lr.oa.oa.dao;
 
 import com.lr.oa.oa.entity.Dept;
 
+import java.util.List;
+import java.util.Map;
+
 public interface DeptMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +17,9 @@ public interface DeptMapper {
     int updateByPrimaryKeySelective(Dept record);
 
     int updateByPrimaryKey(Dept record);
+
+    List<Map<String,String>> findAllDept();
+
+
+
 }

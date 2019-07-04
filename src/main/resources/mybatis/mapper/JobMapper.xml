@@ -6,6 +6,15 @@
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+  
+  <resultMap id="selectJobMap" type="java.util.Map" >
+    <result column="CODE" javaType="java.lang.String" property="jobCode" />
+    <result column="NAME" javaType="java.lang.String" property="name" />
+  </resultMap>
+  
+  <select id="findAllJob" resultMap="selectJobMap">
+    select  CODE,NAME from  oa_id_job
+  </select>
   <sql id="Base_Column_List">
     CODE, NAME, REMARK
   </sql>

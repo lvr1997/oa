@@ -44,8 +44,8 @@ public class User {
     private String delflag;
 
     private Dept dept;
-    private Job job;
 
+    private Job job;
 
     public String getUserId() {
         return userId;

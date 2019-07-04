@@ -1,0 +1,265 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>OA办公管理系统-用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3" />
+<meta http-equiv="description" content="This is my page" />
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/jquery/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/jquery/jquery-migrate-1.2.1.min.js"></script>
+<!-- 导入bootStrap的库 -->
+<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/easyUI/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/easyUI/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" href="/easyUI/easyui.css"/>
+<#--<link rel="stylesheet" href="/css/pager.css"/>-->
+<script type="text/javascript" src="/blockUI/jquery.blockUI.js"></script>
+<script type="text/javascript">
+  /** 文档加载完成*/
+     $(function(){
+	    	//$(document).ajaxStart($.blockUI({ css: { backgroundColor: '#11a9e2', color: '#fff' } , //message: '<h6>正在加载..</h6>'})).ajaxStop($.unblockUI);
+
+			 /** 激活用户操作*/
+    	  /*$("input[id^='checkUser_']").switchbutton({
+              onChange: function(checked){
+            	    var status = checked?"1":"0";
+            		window.location = "/identity/user/activeUser.jspx?userId="+this.value+"&status="+status
+						+"&pageIndex=1&name=admin&phone=1302556662&dept.id=1&job.code=0001";
+              }
+          });*/
+
+         //为添加按钮绑定点击事件
+         $("#addUser").click(function(){
+             $("#divDialog").dialog({
+
+                 title : "添加用户", // 标题
+                 cls : "easyui-dialog", // class
+                 width : 580, // 宽度
+                 height : 455, // 高度
+                 maximizable : true, // 最大化
+                 minimizable : false, // 最小化
+                 collapsible : true, // 可伸缩
+                 modal : true, // 模态窗口
+                 onClose : function(){ // 关闭窗口
+                     //重新进行分页查询
+                     window.location.href="/user/selectUser?pageNumber=1";
+
+
+                 }
+             })
+
+             //通过iframe加载添加用户信息页面
+             $("#iframe").prop("src","/user/showAddUser");
+         })
+
+
+
+    	  var boxes = $("input[id^='box_']")
+
+		 //为全选按钮添加点击事件
+    	  $('#checkAll').click(function () {
+    	      //让所有子checkbox选中状态一致
+			  boxes.prop('checked', this.checked);
+
+			  //为所有的checkedbox添加全局mouceover事件
+			  $("tr[id^='dataTr_']").trigger(this.checked?'mouseover':'mouseout');
+          });
+		 //为所有的子checkbox添加点击事件
+		 boxes.click(function () {
+			 var len = $("input[id^='box_']:checked").length;
+			 $('#checkAll').prop('checked', boxes.length==len);
+         });
+
+		 //为表格绑定鼠标移入事件
+		 $("tr[id^='dataTr_']").mouseover(function () {
+             $(this).css('background', '#eeffcc');
+         }).mouseout(function () {
+             //如果当前行中的  checkbox是选中的则鼠标离开的时候不去掉背景色
+             //获取tr的id
+             var trId = this.id;
+             var boxId = trId.replace("dataTr","box");
+             //获取当前CheckBox的选中状态
+             var flag = $("#"+boxId).prop('checked');
+             if (!flag){
+                 $(this).css('background', '');
+			 }
+
+         });
+
+		   $.post('/deptandjobSelect', function(obj,status){
+			   if(status=="success"){
+				 var depts=  obj.depts;
+				 var job=  obj.jobs;
+
+				   $.each(depts,function(){
+					   // $("#deptSelect").append("<option value='"+this.deptId+"'>"+this.name+"</option>");
+                       $("<option>").val(this.deptId).text(this.name).prop("selected",this.deptId == "${(user.deptId)!}").appendTo("#deptSelect");
+				   })
+
+				   $.each(job,function(){
+						// $("#jobSelect").append("<option value='"+this.jobCode+"'>"+this.name+"</option>")
+					   $("<option>").val(this.jobCode).text(this.name).prop("selected",this.jobCode=="${(user.jobCode)!}").appendTo("#jobSelect")
+				   })
+
+			   }
+
+
+		   },"json");
+
+
+     })
+	
+	function toPage(pageNo) {
+		var name = $("input[name='name']").val();
+		var phone = $("input[name='phone']").val();
+		var deptId = $('#deptSelect option:selected').val();
+		var jobCode = $('#jobSelect option:selected').val();
+
+		window.location.href="/user/selectUser?pageNumber="+pageNo+"&name="+name+"&phone="+phone+"&deptId="+deptId+"&jobCode="+jobCode;
+    }
+
+
+
+</script>
+</head>
+<body style="overflow: hidden; width: 98%; height: 100%;" >
+   	<!-- 工具按钮区 -->
+	<form class="form-horizontal" 
+			action="/user/selectUser" method="post" style="padding-left: 5px;" >
+			<table class="table-condensed">
+					<tbody>
+					<tr>
+					   <td>
+						<input name="name" type="text" class="form-control"
+							placeholder="姓名" value="${(user.name)!}" >
+						</td>
+						<td>	
+						<input type="text" name="phone" class="form-control"
+							placeholder="手机号码" value="${(user.phone)!}" >
+						</td>
+<!-- 						<td>	 -->
+<!-- 						   <input type="text" class="form-control" placeholder="状态"> -->
+<!-- 						</td> -->
+						<td>	
+						<select class="btn btn-default"
+							placeholder="部门" id="deptSelect" name="deptId">
+							<option value="0">==请选择部门==</option>
+						</select>
+						</td>
+						<td>	
+						<select class="btn btn-default"
+							placeholder="职位" id="jobSelect" name="jobCode">
+							<option value="0">==请选择职位==</option>
+						</select>
+						</td>
+						<td>	
+						<button type="submit" id="selectUser" class="btn btn-info"><span class="glyphicon glyphicon-search"></span>&nbsp;查询</button>
+						<a  id="addUser" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;添加</a>
+					    <a  id="deleteUser" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+					 </td>
+					</tr>
+					</tbody>
+				</table>
+		</form>
+ 		<div class="panel panel-primary" style="padding-left: 10px;">
+ 			<div class="panel-heading" style="background-color: #11a9e2;">
+				<h3 class="panel-title">用户信息列表</h3>
+			</div>
+			<div class="panel-body" >
+				<table class="table table-bordered">
+					<thead>
+						<tr style="font-size: 12px;" align="center">
+							<th style="text-align: center;"><input id="checkAll"
+								type="checkbox" /></th>
+							<th style="text-align: center;">账户</th>
+							<th style="text-align: center;">姓名</th>
+							<th style="text-align: center;">性别</th>
+							<th style="text-align: center;">部门</th>
+							<th style="text-align: center;">职位</th>
+							<th style="text-align: center;">手机号码</th>
+							<th style="text-align: center;">邮箱</th>
+							<th style="text-align: center;">激活状态</th>
+							<th style="text-align: center;">审核人</th>
+							<th style="text-align: center;">操作</th>
+						</tr>
+					</thead>
+
+					<#list users.list as user>
+					    <tr id="dataTr_${(user_index)!}" align="center">
+                            <td><input type="checkbox" name="box" id="box_${(user_index)!}" value="1" /></td>
+                            <td>${(user.userId)!}</td>
+                            <td>${(user.name)!}</td>
+                            <td>${(user.sex)!}</td>
+                            <td>${(user.dept.name)!}</td>
+                            <td>${(user.job.name)!}</td>
+                            <td>${(user.phone)!}</td>
+                            <td>${(user.email)!}</td>
+                            <td>
+                                <#if user.status = 1>
+                                    <input id="checkUser_${(user.userId)! }" value="${(user.userId)! }" name="status" class="easyui-switchbutton" data-options="onText:'激活',offText:'冻结'" checked>
+                                <#else>
+                                    <input id="checkUser_${(user.userId)! }" value="${(user.userId)! }" name="status" class="easyui-switchbutton" data-options="onText:'激活',offText:'冻结'" >
+                                </#if>
+                            </td>
+                            <td>${(user.checker)!}</td>
+                            <td>
+                                <span id="updateUser_${(user_index)!}"  class="label label-info"><a href="javascript:updateUser('${(user.userId)! }')" style="color: white;">修改</a></span>
+                                <span id="preUser_${(user_index)!}" class="label label-success"><a href="javascript:preUser('${(user.userId)! }')"  style="color: white;">预览</a></span>
+                            </td>
+                        </tr>
+					</#list>
+
+					<#--<c:forEach items="${requestScope.users}" var="user"
+						varStatus="stat">
+						<tr id="dataTr_${stat.index}" align="center">
+							<td><input type="checkbox" name="box" id="box_${stat.index}"
+								value="${user.userId}" /></td>
+							<td>${user.userId}</td>
+							<td>${user.name}</td>
+							<td>${user.sex == 1 ? '男' : '女' }</td>
+							<td>${ user.dept.name}</td>
+							<td>${ user.job.name}</td>
+							<td>${user.phone}</td>
+							<td>${user.email}</td>
+							<td>
+								<c:if test="${user.status == 1 }">
+									<input id="checkUser_${user.userId }" value="${user.userId }" name="status" class="easyui-switchbutton" data-options="onText:'激活',offText:'冻结'" checked>
+								</c:if>
+								<c:if test="${user.status != 1 }">
+									<input id="checkUser_${user.userId }" value="${user.userId }" name="status" class="easyui-switchbutton" data-options="onText:'激活',offText:'冻结'" >
+								</c:if>
+						    </td>
+								<td>${user.checker.name}</td>
+							<td>
+							   <span id="updateUser_${stat.index}"  class="label label-info"><a href="javascript:updateUser('${user.userId}')" style="color: white;">修改</a></span>
+							   <span id="preUser_${stat.index}" class="label label-success"><a href="javascript:preUser('${user.userId}')"  style="color: white;">预览</a></span>
+							</td>
+						</tr>
+					</c:forEach>-->
+				</table>
+			</div>
+
+            <!-- 分页标签区 -->
+
+            <!-- 导入自定义ftl -->
+			<#import "/pageTag.ftl" as pager/>
+            <!-- 使用该标签 -->
+			<@pager.page pageNo="${(users.pageNum)!}"?number
+						 totalPage="${(users.pages)!}"?number
+			             pageSize="${(users.pageSize)!}"?number
+			             pageUrl="toPage" pageStyle="blue"/>
+
+		</div>
+		
+		<div id="divDialog" style="display: none;" >
+			 <!-- 放置一个添加用户的界面  -->
+			 <iframe id="iframe" frameborder="0" style="width: 100%;height: 100%;"></iframe>
+		</div>
+	
+</body>
+</html>

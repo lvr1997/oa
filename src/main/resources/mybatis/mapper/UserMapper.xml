@@ -22,29 +22,57 @@
     <result column="JOB_CODE" jdbcType="VARCHAR" property="jobCode" />
     <result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
     <result column="delFlag" jdbcType="VARCHAR" property="delflag" />
-    <association property="dept" javaType="com.lr.oa.oa.entity.Dept">
-      <id column="ID" jdbcType="BIGINT" property="id"/>
-      <result column="NAME" jdbcType="VARCHAR" property="name"/>
-    </association>
-
-    <association property="job" javaType="com.lr.oa.oa.entity.Job">
-      <id column="CODE" jdbcType="VARCHAR" property="code"/>
-      <result column="NAME" jdbcType="VARCHAR" property="name"/>
-    </association>
   </resultMap>
-    <select id="selectByUserAndPass"   resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from  oa_id_user
-
-      where USER_ID=#{userId} and   PASS_WORD=#{passWord}
-    </select>
-
   <sql id="Base_Column_List">
     USER_ID, ANSWER, CHECK_DATE, CREATE_DATE, EMAIL, MODIFY_DATE, NAME, PASS_WORD, PHONE, 
     QQ_NUM, QUESTION, SEX, STATUS, TEL, CHECKER, CREATER, DEPT_ID, JOB_CODE, MODIFIER, 
     delFlag
   </sql>
+  <select id="selectUser" parameterType="com.lr.oa.oa.entity.User" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from oa_id_user
+    <where>
+      <if test="name!=null and name!=''">
+        NAME like concat("%",#{name},"%")
+      </if>
+      <if test="phone!=null and phone!=''">
+        and PHONE like concat("%",#{phone},"%")
+      </if>
+      <if test="deptId!=null and deptId!=0">
+        and DEPT_ID = #{deptId}
+      </if>
+      <if test="jobCode!=null and jobCode !=0">
+        and JOB_CODE = #{jobCode}
+      </if>
+    </where>
+  </select>
+  <select id="countUsers" parameterType="com.lr.oa.oa.entity.User" resultType="java.lang.Long">
+    select
+      count(USER_ID)
+    from oa_id_user
+    <where>
+      <if test="name!=null and name!=''">
+        NAME like concat("%",#{name},"%")
+      </if>
+      <if test="phone!=null and phone!=''">
+        and PHONE like concat("%",#{phone},"%")
+      </if>
+      <if test="deptId!=null and deptId!=0">
+        and DEPT_ID = #{deptId}
+      </if>
+      <if test="jobCode!=null and jobCode !=0">
+        and JOB_CODE = #{jobCode}
+      </if>
+    </where>
+  </select>
+  <select id="selectByUserAndPass" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from  oa_id_user
+
+    where USER_ID=#{userId} and   PASS_WORD=#{passWord}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

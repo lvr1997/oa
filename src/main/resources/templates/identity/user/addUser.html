@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,21 +10,15 @@
 <meta name="Description" content="网页信息的描述" />
 <meta name="Author" content="fkjava.org" />
 <meta name="Copyright" content="All Rights Reserved." />
-<link href="${ctx}/fkjava.ico" rel="shortcut icon" type="image/x-icon" />
-<link rel="stylesheet"
-	href="${ctx }/resources/bootstrap/css/bootstrap.min.css" />
-<script type="text/javascript"
-	src="${ctx }/resources/jquery/jquery-1.11.0.min.js"></script>
-<script type="text/javascript"
-	src="${ctx }/resources/jquery/jquery-migrate-1.2.1.min.js"></script>
+<#--<link href="/fkjava.ico" rel="shortcut icon" type="image/x-icon" />-->
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/jquery/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/jquery/jquery-migrate-1.2.1.min.js"></script>
 <!-- 导入bootStrap的库 -->
-<script type="text/javascript"
-	src="${ctx}/resources/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="${ctx}/resources/easyUI/jquery.easyui.min.js"></script>
-<script type="text/javascript"
-	src="${ctx}/resources/easyUI/easyui-lang-zh_CN.js"></script>
-<link rel="stylesheet" href="${ctx}/resources/easyUI/easyui.css">
+<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/easyUI/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/easyUI/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" href="/easyUI/easyui.css">
 <script type="text/javascript">
 	$(function() {
 
@@ -97,25 +90,25 @@
 </head>
 <body style="background: #F5FAFA;">
 	<center>
-		<form id="addUserForm" action="${ctx}/identity/user/addUser.jspx"
+		<form id="addUserForm" action="/user/addUser"
 			method="post">
 			<table class="table-condensed">
 				<tbody>
 					<tr>
 						<td><label>登陆名称:<label></td>
 						<td><input type="text" id="userId" name="userId"
-							value="${user.name}" class="form-control" placeholder="请输入您的登录名"></td>
+							value="" class="form-control" placeholder="请输入您的登录名"></td>
 						<td><label>用户姓名:<label></td>
 						<td><input type="text" id="name" name="name"
-							value="${user.name}" class="form-control" placeholder="请输入您的电子邮件"></td>
+							value="" class="form-control" placeholder="请输入您的电子邮件"></td>
 					</tr>
 					<tr>
 						<td><label>密码:<label></td>
 						<td><input type="text" id="password" name="passWord"
-							value="${user.name}" class="form-control" placeholder="请输入您的密码"></td>
+							value="" class="form-control" placeholder="请输入您的密码"></td>
 						<td><label>确认密码:<label></td>
 						<td><input type="text" id="repwd" name="repwd"
-							value="${user.name}" class="form-control" placeholder="请输入您的确认密码"></td>
+							value="" class="form-control" placeholder="请输入您的确认密码"></td>
 					</tr>
 					<tr>
 						<td><label>性别:<label></td>
@@ -135,18 +128,18 @@
 						</td>
 						<td><label>邮箱:<label></td>
 						<td><input id="email" name="email" type="text"
-							value="${user.email}" class="form-control"
+							value="" class="form-control"
 							placeholder="请输入您的电子邮件"></td>
 					</tr>
 
 					<tr>
 						<td><label>电话:<label></td>
 						<td><input id="tel" name="tel" type="text"
-							value="${user.tel}" class="form-control" placeholder="请输入您的电话">
+							value="" class="form-control" placeholder="请输入您的电话">
 						</td>
 						<td><label>手机:<label></td>
 						<td><input id="phone" name="phone" type="text"
-							value="${user.phone}" class="form-control" placeholder="请输入您的手机">
+							value="" class="form-control" placeholder="请输入您的手机">
 
 						</td>
 					</tr>
@@ -160,12 +153,12 @@
 								<option value="3">您母亲的名字</option>
 						</select></td>
 						<td><label>答案:<label></td>
-						<td><input id="answer" name="answer" value="${user.answer}"
+						<td><input id="answer" name="answer" value=""
 							type="text" class="form-control" placeholder="请输入您的答案"></td>
 					</tr>
 					<tr>
 						<td><label>qq号码:<label></td>
-						<td><input id="qqNum" name="qqNum" value="${user.qqNum}"
+						<td><input id="qqNum" name="qqNum" value=""
 							type="text" class="form-control" placeholder="请输入您的qq号码">
 						</td>
 					</tr>

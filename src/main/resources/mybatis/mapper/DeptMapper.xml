@@ -10,6 +10,14 @@
     <result column="CREATER" jdbcType="VARCHAR" property="creater" />
     <result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
   </resultMap>
+  <resultMap id="selectDeptMap" type="java.util.Map">
+    <result column="ID" javaType="java.lang.String" property="deptId"/>
+    <result column="NAME" javaType="java.lang.String" property="name"/>
+  </resultMap>
+
+  <select id="findAllDept" resultMap="selectDeptMap">
+    select  ID,NAME from  oa_id_dept
+  </select>
   <sql id="Base_Column_List">
     ID, CREATE_DATE, MODIFY_DATE, NAME, REMARK, CREATER, MODIFIER
   </sql>

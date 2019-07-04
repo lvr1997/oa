@@ -34,7 +34,7 @@
 					   }else{
                            $.ajax({
                                type:"post",
-                               url:"/ajaxLogin",
+                               url:"/login",
                                dataType:"json",
                                data:{userId:name,passWord:pass,vcode:vcode},
                                success:function(data){
@@ -71,7 +71,8 @@
 				<div class="lg-zone">
 					<div class="lg-box">
 						<div class="panel-heading" style="background-color: #11a9e2;">
-							<h3 class="panel-title" style="color: #FFFFFF;font-style: italic;">用户登陆</h3>
+							<h3 class="panel-title" style="color: #FFFFFF;font-style: italic;">用户登陆
+							<span style="color: red;"><#if loginMsg??> ${(loginMsg)!}</#if></span> </h3>
 						</div>
 						<form id="loginForm">
 						   <div class="form-horizontal" style="padding-top: 20px;padding-bottom: 30px; padding-left: 20px;">

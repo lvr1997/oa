@@ -90,9 +90,9 @@
 <body>
     <div class="container">
         <div id="pf-hd">
-           <div class="pf-logo"">
+           <#--<div class="pf-logo"">
                 <img  src="/images/main/main_logo.png" alt="logo">
-           </div>
+           </div>-->
             
             <div class="pf-nav-wrap">
               <div class="pf-nav-ww">
@@ -129,7 +129,7 @@
                             </a>
                         </li>
                         <li  id="exit">
-                            <a href="javascript:exit();">
+                            <a href="/login">
                                 <i class="iconfont">&#xe60e;</i>
                                 <span class="pf-opt-name">退出</span>
                             </a>
@@ -152,14 +152,14 @@
                     <li>
                         <a href="javascript:;" >
                             <span class="iconfont sider-nav-icon">&#xe611;</span>
-                            <span class="sider-nav-title"></span><#--${userModule.firstModule.name}-->
+                            <span class="sider-nav-title">系统管理</span><#--${userModule.firstModule.name}-->
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
 
-                                <li><a href="javascript"</a>用户管理</li>
-                              <li><a href="javascript"</a>角色管理</li>
-                                <li><a href="javascript"</a>请假管理</li>
+                                <li><a href="javascript:addPanel('0001', 'user/selectUser', '用户管理')">用户管理</a></li>
+                                 <li><a href="javascript:addPanel('0002', 'role', '角色管理')">角色管理</a></li>
+                                <li><a href="javascript:addPanel('0003', 'module', '菜单管理')">菜单管理</a></li>
 
                         </ul>
                     </li>
