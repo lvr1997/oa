@@ -1,5 +1,6 @@
 package com.lr.oa.oa.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.lr.oa.oa.entity.User;
 import com.lr.oa.oa.service.IdentityService;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -48,6 +51,28 @@ public class UserController {
         return  "/identity/user/user";
     }
 
+
+    @RequestMapping("/user/showAddUser")
+    public String addUser(){
+
+        return "/identity/user/addUser";
+    }
+
+    @RequestMapping(value = "/user/addUser", method = RequestMethod.POST)
+    public String addUser(User user, Model model){
+
+        user.setCreateDate(new Date());
+        user.setCreater((String) ConstantUtils.getSession().getAttribute(ConstantUtils.SESSION_USER));
+        int flag = identityService.addUser(user);
+        if (flag>0){
+            model.addAttribute("message", "添加成功");
+        } else {
+            model.addAttribute("message", "添加失败");
+        }
+
+        return "/identity/user/addUser";
+    }
+
     /**
      * 动态加载部门职位选择框信息
      *
@@ -56,8 +81,24 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/deptandjobSelect")
     public String deptandjobSelect(){
-        String  result=   identityService.deptandJob();
+        String  result = identityService.deptandJob();
         return  result;
+    }
+
+    @RequestMapping("/deleteUserByIds")
+    public String deleteUserByIds(@RequestParam("ids") String ids ,Model model){
+        try {
+            int flag = identityService.deleteUser(ids);
+            if (flag>0){
+                model.addAttribute("message", "删除成功");
+            } else {
+                model.addAttribute("message", "删除失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "forward:/identity/user/user";
     }
 
 

@@ -33,4 +33,14 @@ public interface IdentityService {
      */
    String deptandJob();
 
+    /**
+     * 添加用户
+     *
+     * @param user
+     * @return
+     */
+   int addUser(User user);
+
+   int deleteUser(String ids);
+
 }

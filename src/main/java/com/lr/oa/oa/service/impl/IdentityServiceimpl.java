@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class IdentityServiceimpl implements IdentityService {
 
     @Resource
@@ -79,18 +79,39 @@ public class IdentityServiceimpl implements IdentityService {
 
     @Override
     public String deptandJob() {
-      try{
-    List<Map<String ,String>> depts=deptMapper.findAllDept();
-    List<Map<String,String>> jobs=jobMapper.findAllJob();
+        try{
+            List<Map<String ,String>> depts=deptMapper.findAllDept();
+            List<Map<String,String>> jobs=jobMapper.findAllJob();
 
-          JSONObject jb= new JSONObject();
-          jb.put("depts",depts);
-          jb.put("jobs",jobs);
-          return  jb.toJSONString();
-      }catch(Exception e){
-        e.printStackTrace();
+            JSONObject jb= new JSONObject();
+            jb.put("depts",depts);
+            jb.put("jobs",jobs);
+
+            return  jb.toJSONString();
+        }catch(Exception e){
+            e.printStackTrace();
         }
 
         return null;
+    }
+
+    @Override
+    public int addUser(User user) {
+
+        return userMapper.insertSelective(user);
+    }
+
+    @Override
+    public int deleteUser(String ids) {
+        int flag = 0;
+        try {
+            String[] userIds = ids.split(",");
+            for (int i=0; i<userIds.length; i++){
+                flag = userMapper.deleteUserById(userIds[i]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
     }
 }

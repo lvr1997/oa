@@ -23,4 +23,6 @@ public interface UserMapper {
     List<User> selectUser(User user);
 
     long countUsers(User user);
+
+    int deleteUserById(String userId);
 }

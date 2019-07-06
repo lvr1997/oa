@@ -17,6 +17,9 @@
 	 <script type="text/javascript">
 		     $(function(){
 
+                 if(window.location != top.window.location){
+                     top.window.location = window.location;
+                 }
                 $("#vimg").click(function(){
                     $("#vimg").prop("src","/createCode?data="+Math.random());
 				})

@@ -33,6 +33,23 @@
               }
           });*/
 
+    	  $("#deleteUser").click(function(){
+    	      var  boxs=$("[id^='box_']").filter(":checked");
+    	      if(boxs.length==0){
+    	          $.messager.alert("提示信息","请选择你要删除的用户信息","warning");
+			  }else {
+    	          $.message.confirm("提示信息","确认要删除用户吗"，function(r){
+    	              if(r){
+    	                  var array=new Array();
+    	                  for(var i=0; i< boxs.length;i++){
+                              array.push(boxs[i].value);
+
+                          window.location = "/user/deleteUserByIds?userIds="+array;
+					  }
+				  })
+			  }
+		  })
+
          //为添加按钮绑定点击事件
          $("#addUser").click(function(){
              $("#divDialog").dialog({
@@ -105,10 +122,7 @@
 						// $("#jobSelect").append("<option value='"+this.jobCode+"'>"+this.name+"</option>")
 					   $("<option>").val(this.jobCode).text(this.name).prop("selected",this.jobCode=="${(user.jobCode)!}").appendTo("#jobSelect")
 				   })
-
 			   }
-
-
 		   },"json");
 
 
@@ -191,7 +205,7 @@
 
 					<#list users.list as user>
 					    <tr id="dataTr_${(user_index)!}" align="center">
-                            <td><input type="checkbox" name="box" id="box_${(user_index)!}" value="1" /></td>
+                            <td><input type="checkbox" name="box" id="box_${(user_index)!}" value="${(user.userId)!}" /></td>
                             <td>${(user.userId)!}</td>
                             <td>${(user.name)!}</td>
                             <td>${(user.sex)!}</td>

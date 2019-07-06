@@ -82,16 +82,43 @@
 				msg += "密保问题不能为空!";
 				answer.focus();
 			}
-			
+
+            if(msg){
+                $.messager.alert('提示信息',msg,'warning');
+            }else{
+                //提交表单  添加用户
+                $("#addUserForm").submit();
+            }
 
 		});
+
+
+        $.post('/deptandjobSelect', function(obj,status){
+            if(status=="success"){
+                var depts=  obj.depts;
+                var job=  obj.jobs;
+
+                $.each(depts,function(){
+                    // $("#deptSelect").append("<option value='"+this.deptId+"'>"+this.name+"</option>");
+                    $("<option>").val(this.deptId).text(this.name).prop("selected",this.deptId == "${(user.deptId)!}").appendTo("#deptSelect");
+                })
+
+                $.each(job,function(){
+                    // $("#jobSelect").append("<option value='"+this.jobCode+"'>"+this.name+"</option>")
+                    $("<option>").val(this.jobCode).text(this.name).prop("selected",this.jobCode=="${(user.jobCode)!}").appendTo("#jobSelect")
+                })
+
+            }
+
+
+        },"json");
+
 	});
 </script>
 </head>
 <body style="background: #F5FAFA;">
 	<center>
-		<form id="addUserForm" action="/user/addUser"
-			method="post">
+		<form id="addUserForm" action="/user/addUser" method="post">
 			<table class="table-condensed">
 				<tbody>
 					<tr>
