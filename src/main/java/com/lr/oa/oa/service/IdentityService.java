@@ -1,9 +1,12 @@
 package com.lr.oa.oa.service;
 
 import com.github.pagehelper.PageInfo;
+import com.lr.oa.oa.entity.Module;
 import com.lr.oa.oa.entity.User;
 import com.lr.oa.oa.utils.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 public interface IdentityService {
 
@@ -41,6 +44,20 @@ public interface IdentityService {
      */
    int addUser(User user);
 
-   int deleteUser(String ids);
+   int deleteUser(String userIds);
 
+    /**
+     * 通过角色id查询用户
+     * @param id
+     * @return
+     */
+   List<User> selectUserByRoleId(Long id);
+
+    List<User> showUnbindUser(long roleId);
+
+    void bindUser(long roleId, String ids);
+
+    String loadAllModule();
+
+    List<Module> getModulesByPcode(String code);
 }

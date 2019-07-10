@@ -157,9 +157,9 @@
                         </a>
                         <ul class="sider-nav-s">
 
-                                <li><a href="javascript:addPanel('0001', 'user/selectUser', '用户管理')">用户管理</a></li>
-                                 <li><a href="javascript:addPanel('0002', 'role', '角色管理')">角色管理</a></li>
-                                <li><a href="javascript:addPanel('0003', 'module', '菜单管理')">菜单管理</a></li>
+                                <li><a href="javascript:addPanel('0001', 'identity/user/selectUser', '用户管理')">用户管理</a></li>
+                                 <li><a href="javascript:addPanel('0002', 'identity/role/selectRole', '角色管理')">角色管理</a></li>
+                                <li><a href="javascript:addPanel('0003', 'identity/module/mgrModule', '菜单管理')">菜单管理</a></li>
 
                         </ul>
                     </li>
@@ -187,7 +187,7 @@
             <div id="pf-page">
                 <div class="easyui-tabs" id="tt" style="width:100%;height:100%;">
                   <div title="当前用户" id="user" style="padding:10px 5px 5px 10px;">
-                    	<iframe class="page-iframe" src="/user/showInfo" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
+                    	<iframe class="page-iframe" src="/identity/user/showInfo" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                   </div>
                 </div>
             </div>

@@ -21,6 +21,12 @@
     from oa_id_module
     where CODE = #{code,jdbcType=VARCHAR}
   </select>
+  <select id="loadAllModule" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+      oa_id_module
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from oa_id_module
     where CODE = #{code,jdbcType=VARCHAR}
@@ -138,4 +144,12 @@
       delFlag = #{delflag,jdbcType=VARCHAR}
     where CODE = #{code,jdbcType=VARCHAR}
   </update>
-</mapper>
+
+
+  <select id="getModulesByPcode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+      from
+    oa_id_module where CODE LIKE concat(#{code},"%") and length(CODE)=#{codeLength}
+  </select>
+ </mapper>

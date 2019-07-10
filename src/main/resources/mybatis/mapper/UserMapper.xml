@@ -23,19 +23,38 @@
     <result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
     <result column="delFlag" jdbcType="VARCHAR" property="delflag" />
   </resultMap>
-
+     
   <sql id="Base_Column_List">
     USER_ID, ANSWER, CHECK_DATE, CREATE_DATE, EMAIL, MODIFY_DATE, NAME, PASS_WORD, PHONE, 
     QQ_NUM, QUESTION, SEX, STATUS, TEL, CHECKER, CREATER, DEPT_ID, JOB_CODE, MODIFIER, 
     delFlag
   </sql>
+  
+  <select id="selectUserByRoleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+   select
+     u.USER_ID, u.NAME, SEX, PHONE, DEPT_ID, JOB_CODE, EMAIL, CHECKER,
+     r.ID,r.NAME
+     from
+      oa_id_user_role ur
+      inner join
+        oa_id_role r
+      on
+        ur.ROLE_ID = r.ID
+      inner join
+        oa_id_user u
+      on
+        ur.USER_ID = u.USER_ID
+      where
+        ur.ROLE_ID = #{id}
+  </select>
   <select id="selectUser" parameterType="com.lr.oa.oa.entity.User" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from oa_id_user
     <where>
+        delFlag is null
       <if test="name!=null and name!=''">
-        NAME like concat("%",#{name},"%")
+        and NAME like concat("%",#{name},"%")
       </if>
       <if test="phone!=null and phone!=''">
         and PHONE like concat("%",#{phone},"%")
@@ -48,13 +67,32 @@
       </if>
     </where>
   </select>
+  <select id="showUnbindUser" parameterType="java.lang.Long" resultMap="BaseResultMap">
+   select
+     u.USER_ID, u.NAME, SEX, PHONE, DEPT_ID, JOB_CODE, EMAIL, CHECKER
+     from
+      oa_id_user u
+		where  u.delFlag is null and u.USER_ID
+      not in
+      (select   u.USER_ID
+       from
+      oa_id_user u
+      inner join
+        oa_id_user_role ur
+      on
+        ur.USER_ID = u.USER_ID
+      where
+        ur.ROLE_ID = #{roleId})
+
+  </select>
   <select id="countUsers" parameterType="com.lr.oa.oa.entity.User" resultType="java.lang.Long">
     select
       count(USER_ID)
     from oa_id_user
     <where>
+        delFlag is null
       <if test="name!=null and name!=''">
-        NAME like concat("%",#{name},"%")
+        and NAME like concat("%",#{name},"%")
       </if>
       <if test="phone!=null and phone!=''">
         and PHONE like concat("%",#{phone},"%")
@@ -322,4 +360,8 @@
     where
       USER_ID = #{userId,jdbcType=VARCHAR}
   </update>
+
+  <insert id="bindUser" >
+    insert into oa_id_user_role (ROLE_ID,USER_ID)values (#{roleId},#{uid})
+  </insert>
 </mapper>

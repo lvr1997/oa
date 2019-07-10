@@ -24,5 +24,11 @@ public interface UserMapper {
 
     long countUsers(User user);
 
-    int deleteUserById(String userId);
+    int deleteUserById(String userIds);
+
+    List<User> selectUserByRoleId(Long id );
+
+    List<User> showUnbindUser(long roleId);
+
+     void bindUser(@Param("roleId") long roleId, @Param("uid") String uid);
 }

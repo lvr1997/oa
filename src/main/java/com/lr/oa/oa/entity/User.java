@@ -1,6 +1,8 @@
 package com.lr.oa.oa.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class User {
     private String userId;
@@ -46,6 +48,16 @@ public class User {
     private Dept dept;
 
     private Job job;
+
+    private Set<Role> roles;
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public String getUserId() {
         return userId;

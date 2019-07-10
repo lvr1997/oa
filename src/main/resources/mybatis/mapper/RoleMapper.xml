@@ -11,6 +11,13 @@
     <result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
     <result column="delFlag" jdbcType="VARCHAR" property="delflag" />
   </resultMap>
+  <select id="selectRole" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+     from
+      oa_id_role
+
+  </select>
   <sql id="Base_Column_List">
     ID, CREATE_DATE, MODIFY_DATE, NAME, REMARK, CREATER, MODIFIER, delFlag
   </sql>
@@ -125,4 +132,10 @@
       delFlag = #{delflag,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+
+  <delete id="unBindUser" >
+    delete from  oa_id_user_role where ROLE_ID=#{roleId} and USER_ID=#{uid}
+  </delete>
+
+
 </mapper>

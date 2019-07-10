@@ -39,7 +39,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
         request.setAttribute("loginMsg", "您还未登录，请执行登录操作");
-        request.getRequestDispatcher("/login").forward(request, response);
+        request.getRequestDispatcher("/identity/login").forward(request, response);
 
         return false;
     }

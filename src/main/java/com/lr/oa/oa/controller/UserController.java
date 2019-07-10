@@ -19,6 +19,7 @@ import java.util.Date;
  * @author lr
  */
 @Controller
+@RequestMapping("/identity")
 public class UserController {
 
     @Resource
@@ -85,10 +86,10 @@ public class UserController {
         return  result;
     }
 
-    @RequestMapping("/deleteUserByIds")
-    public String deleteUserByIds(@RequestParam("ids") String ids ,Model model){
+    @RequestMapping("/user/deleteUserByIds")
+    public String deleteUserByIds(@RequestParam("userIds") String userIds ,Model model){
         try {
-            int flag = identityService.deleteUser(ids);
+            int flag = identityService.deleteUser(userIds);
             if (flag>0){
                 model.addAttribute("message", "删除成功");
             } else {
@@ -98,7 +99,7 @@ public class UserController {
             e.printStackTrace();
         }
 
-        return "forward:/identity/user/user";
+        return "forward:/user/selectUser";
     }
 
 

@@ -38,15 +38,15 @@
     	      if(boxs.length==0){
     	          $.messager.alert("提示信息","请选择你要删除的用户信息","warning");
 			  }else {
-    	          $.message.confirm("提示信息","确认要删除用户吗"，function(r){
+    	          $.messager.confirm("提示信息","确认要删除用户吗",function(r){
     	              if(r){
     	                  var array=new Array();
-    	                  for(var i=0; i< boxs.length;i++){
+    	                  for(var i=0; i< boxs.length;i++) {
                               array.push(boxs[i].value);
-
-                          window.location = "/user/deleteUserByIds?userIds="+array;
+                          }
+                          window.location = "/identity/user/deleteUserByIds?userIds="+array;
 					  }
-				  })
+				  });
 			  }
 		  })
 
@@ -64,14 +64,14 @@
                  modal : true, // 模态窗口
                  onClose : function(){ // 关闭窗口
                      //重新进行分页查询
-                     window.location.href="/user/selectUser?pageNumber=1";
+                     window.location.href="/identity/user/selectUser?pageNumber=1";
 
 
                  }
              })
 
              //通过iframe加载添加用户信息页面
-             $("#iframe").prop("src","/user/showAddUser");
+             $("#iframe").prop("src","/identity/user/showAddUser");
          })
 
 
@@ -108,7 +108,7 @@
 
          });
 
-		   $.post('/deptandjobSelect', function(obj,status){
+		   $.post('/identity/deptandjobSelect', function(obj,status){
 			   if(status=="success"){
 				 var depts=  obj.depts;
 				 var job=  obj.jobs;
@@ -126,7 +126,7 @@
 		   },"json");
 
 
-     })
+     });
 	
 	function toPage(pageNo) {
 		var name = $("input[name='name']").val();
@@ -134,7 +134,7 @@
 		var deptId = $('#deptSelect option:selected').val();
 		var jobCode = $('#jobSelect option:selected').val();
 
-		window.location.href="/user/selectUser?pageNumber="+pageNo+"&name="+name+"&phone="+phone+"&deptId="+deptId+"&jobCode="+jobCode;
+		window.location.href="/identity/user/selectUser?pageNumber="+pageNo+"&name="+name+"&phone="+phone+"&deptId="+deptId+"&jobCode="+jobCode;
     }
 
 
@@ -227,34 +227,6 @@
                             </td>
                         </tr>
 					</#list>
-
-					<#--<c:forEach items="${requestScope.users}" var="user"
-						varStatus="stat">
-						<tr id="dataTr_${stat.index}" align="center">
-							<td><input type="checkbox" name="box" id="box_${stat.index}"
-								value="${user.userId}" /></td>
-							<td>${user.userId}</td>
-							<td>${user.name}</td>
-							<td>${user.sex == 1 ? '男' : '女' }</td>
-							<td>${ user.dept.name}</td>
-							<td>${ user.job.name}</td>
-							<td>${user.phone}</td>
-							<td>${user.email}</td>
-							<td>
-								<c:if test="${user.status == 1 }">
-									<input id="checkUser_${user.userId }" value="${user.userId }" name="status" class="easyui-switchbutton" data-options="onText:'激活',offText:'冻结'" checked>
-								</c:if>
-								<c:if test="${user.status != 1 }">
-									<input id="checkUser_${user.userId }" value="${user.userId }" name="status" class="easyui-switchbutton" data-options="onText:'激活',offText:'冻结'" >
-								</c:if>
-						    </td>
-								<td>${user.checker.name}</td>
-							<td>
-							   <span id="updateUser_${stat.index}"  class="label label-info"><a href="javascript:updateUser('${user.userId}')" style="color: white;">修改</a></span>
-							   <span id="preUser_${stat.index}" class="label label-success"><a href="javascript:preUser('${user.userId}')"  style="color: white;">预览</a></span>
-							</td>
-						</tr>
-					</c:forEach>-->
 				</table>
 			</div>
 

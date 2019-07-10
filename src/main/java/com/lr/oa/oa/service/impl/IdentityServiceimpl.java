@@ -1,13 +1,13 @@
 package com.lr.oa.oa.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lr.oa.oa.dao.DeptMapper;
-import com.lr.oa.oa.dao.JobMapper;
-import com.lr.oa.oa.dao.UserMapper;
+import com.lr.oa.oa.dao.*;
 import com.lr.oa.oa.entity.Dept;
 import com.lr.oa.oa.entity.Job;
+import com.lr.oa.oa.entity.Module;
 import com.lr.oa.oa.entity.User;
 import com.lr.oa.oa.service.IdentityService;
 import com.lr.oa.oa.utils.PageModel;
@@ -33,6 +33,11 @@ public class IdentityServiceimpl implements IdentityService {
 
     @Resource
     private JobMapper jobMapper;
+
+    @Resource
+    private ModuleMapper moduleMapper;
+
+
 
     @Override
     public String userLogin(String userId, String pass, String vcode) {
@@ -102,16 +107,105 @@ public class IdentityServiceimpl implements IdentityService {
     }
 
     @Override
-    public int deleteUser(String ids) {
+    public int deleteUser(String userIds) {
         int flag = 0;
         try {
-            String[] userIds = ids.split(",");
-            for (int i=0; i<userIds.length; i++){
-                flag = userMapper.deleteUserById(userIds[i]);
+            String[] userId = userIds.split(",");
+            for (int i=0; i<userId.length; i++){
+                flag = userMapper.deleteUserById(userId[i]);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    @Override
+    public List<User> selectUserByRoleId(Long id) {
+
+        try {
+            List<User> user= userMapper.selectUserByRoleId(id);
+            for (User u : user) {
+                Dept d = deptMapper.selectByPrimaryKey(u.getDeptId());
+                Job j = jobMapper.selectByPrimaryKey(u.getJobCode());
+                u.setDept(d);
+                u.setJob(j);
+            }
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    @Override
+    public List<User> showUnbindUser(long roleId) {
+
+        try {
+            List<User>  users=  userMapper.showUnbindUser(roleId);
+            for(User user:users){
+                Dept d = deptMapper.selectByPrimaryKey(user.getDeptId());
+                Job j=  jobMapper.selectByPrimaryKey(user.getJobCode());
+                user.setDept(d);
+                user.setJob(j);
+            }
+            return users;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void bindUser(long roleId, String ids) {
+
+        try {
+            String[] ides=ids.split(",");
+
+          for(String uid:ides){
+             // roleMapper.unBindUser(roleId,uid);
+               userMapper.bindUser(roleId,uid);
+          }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public String loadAllModule() {
+
+        List<Module> modules = moduleMapper.loadAllModule();
+        JSONArray arr = new JSONArray();
+        for (Module module : modules) {
+            JSONObject ob = new JSONObject();
+            String code = module.getCode();
+            ob.put("id", code);
+            ob.put("pid", code.length() == 4 ? "1" : code.substring(0, code.length()-4));
+            ob.put("name", module.getName());
+            arr.add(ob);
+        }
+        System.out.println("arr.toString():"+arr.toString());
+
+        return arr.toString();
+    }
+
+    @Override
+    public List<Module> getModulesByPcode(String code) {
+
+        try {
+            if (code == null){
+                code = "";
+            }
+           List<Module> models= moduleMapper.getModulesByPcode(code, code.length()+4);
+           return  models;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 }
