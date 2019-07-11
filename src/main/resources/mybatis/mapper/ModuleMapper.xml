@@ -152,4 +152,11 @@
       from
     oa_id_module where CODE LIKE concat(#{code},"%") and length(CODE)=#{codeLength}
   </select>
+
+  <select id="loadThirdModule" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    oa_id_module where CODE LIKE concat(#{code},"%") and length(CODE)=#{i}
+  </select>
  </mapper>

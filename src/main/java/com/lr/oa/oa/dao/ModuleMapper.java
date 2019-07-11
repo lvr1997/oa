@@ -25,4 +25,7 @@ public interface ModuleMapper {
     List<Module> loadAllModule();
 
     List<Module> getModulesByPcode(@Param("code") String code, @Param("codeLength")Integer codeLength);
+
+
+    List<Module> loadThirdModule( @Param("code") String code ,@Param("i") int i );
 }

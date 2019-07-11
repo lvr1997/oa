@@ -12,6 +12,14 @@
   <sql id="Base_Column_List">
     ID, CREATE_DATE, CREATER, MODULE_CODE, OPERA_CODE, ROLE_ID
   </sql>
+  <select id="findOperaCodeByRoleIdAndModuleCode" resultType="java.lang.String">
+    select
+      OPERA_CODE
+    from
+      oa_id_popedom
+    where
+      ROLE_ID = #{id} and MODULE_CODE = #{code}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -103,4 +111,9 @@
       ROLE_ID = #{roleId,jdbcType=BIGINT}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+
+  <delete id="deleteBindOpera" >
+
+    delete from  oa_id_popedom where ROLE_ID=#{id} and   MODULE_CODE=#{code}
+  </delete>
 </mapper>

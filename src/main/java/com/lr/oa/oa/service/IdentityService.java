@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+ *
+ * @author lr
+ * @date 2019/07/11
+ */
 public interface IdentityService {
 
     /**
@@ -34,7 +39,7 @@ public interface IdentityService {
      *
      * @return
      */
-   String deptandJob();
+    String deptandJob();
 
     /**
      * 添加用户
@@ -42,22 +47,53 @@ public interface IdentityService {
      * @param user
      * @return
      */
-   int addUser(User user);
+    int addUser(User user);
 
-   int deleteUser(String userIds);
+    /**
+     * 删除用户（可批量）
+     * @param userIds
+     * @return
+     */
+    int deleteUser(String userIds);
 
     /**
      * 通过角色id查询用户
      * @param id
      * @return
      */
-   List<User> selectUserByRoleId(Long id);
+    List<User> selectUserByRoleId(Long id);
 
+    /**
+     * 加载未绑定的用户
+     * @param roleId
+     * @return
+     */
     List<User> showUnbindUser(long roleId);
 
+    /**
+     * 绑定用户
+     * @param roleId
+     * @param ids
+     */
     void bindUser(long roleId, String ids);
 
+    /**
+     * 加载所有模块
+     * @return
+     */
     String loadAllModule();
 
+    /**
+     * 根据父模块加载所有子模块
+     * @param code
+     * @return
+     */
     List<Module> getModulesByPcode(String code);
+
+    /**
+     * 加载三级模块（查询二级模块下都有哪些操作）
+     * @param code
+     * @return
+     */
+    List<Module> loadThirdModule(String code);
 }

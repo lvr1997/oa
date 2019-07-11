@@ -208,4 +208,15 @@ public class IdentityServiceimpl implements IdentityService {
         return null;
 
     }
+
+    @Override
+    public List<Module> loadThirdModule(String code) {
+        if(code==null){
+            code="";
+
+        }
+        List<Module> models= moduleMapper.loadThirdModule(code,code.length()+4);
+        return models;
+    }
+
 }

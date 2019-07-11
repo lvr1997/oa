@@ -79,7 +79,7 @@
 							<td>${(role.name)!}</td>
 							<td>${(role.remark)!}</td>
 							<td><span class="label label-success"><a href="/identity/role/selectRoleUser?id=${(role.id)!}" style="color: white;">绑定用户</a></span>&nbsp;
-								<span class="label label-info"><a href="" style="color: white;">绑定操作</a></span></td>
+								<span class="label label-info"><a href="/identity/popedom/mgrPopedom?id=${(role.id)!}" style="color: white;">绑定操作</a></span></td>
 							<td><#if role.createDate??>${(role.createDate)?string["yyyy-MM-dd HH:mm:ss"]}</#if></td>
 							<td>${(role.creater)!}</td>
 							<td><#if role.modifyDate??>${(role.modifyDate)?string["yyyy-MM-dd HH:mm:ss"]}</#if></td>
