@@ -2,16 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lr.oa.oa.dao.PopedomMapper">
   <resultMap id="BaseResultMap" type="com.lr.oa.oa.entity.Popedom">
-    <id column="ID" jdbcType="BIGINT" property="id" />
-    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
-    <result column="MODULE_CODE" jdbcType="VARCHAR" property="moduleCode" />
-    <result column="OPERA_CODE" jdbcType="VARCHAR" property="operaCode" />
-    <result column="ROLE_ID" jdbcType="BIGINT" property="roleId" />
-  </resultMap>
+  <id column="ID" jdbcType="BIGINT" property="id" />
+  <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+  <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+  <result column="MODULE_CODE" jdbcType="VARCHAR" property="moduleCode" />
+  <result column="OPERA_CODE" jdbcType="VARCHAR" property="operaCode" />
+  <result column="ROLE_ID" jdbcType="BIGINT" property="roleId" />
+
+</resultMap>
+
+
+
   <sql id="Base_Column_List">
     ID, CREATE_DATE, CREATER, MODULE_CODE, OPERA_CODE, ROLE_ID
   </sql>
+
+    <select id="findPageOperasByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+      select DISTINCT OPERA_CODE  from  oa_id_popedom  where  ROLE_ID in
+   ( select ur.ROLE_ID from  oa_id_user u inner JOIN oa_id_user_role ur on ur.USER_ID=#{userId})
+    </select>
+
+  <select id="findLeftMenuOperas" parameterType="java.lang.String" resultType="java.lang.String">
+
+    select DISTINCT MODULE_CODE  from  oa_id_popedom  where  ROLE_ID in
+   ( select ur.ROLE_ID from  oa_id_user u inner JOIN oa_id_user_role ur on ur.USER_ID=#{userId})
+  </select>
   <select id="findOperaCodeByRoleIdAndModuleCode" resultType="java.lang.String">
     select
       OPERA_CODE

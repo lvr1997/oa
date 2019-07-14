@@ -35,7 +35,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         User user = (User) session.getAttribute(ConstantUtils.SESSION_USER);
         if (user != null){
 
-            System.out.println("当前用户已登录，登录用户名为："+user.getName());
+//            System.out.println("当前用户已登录，登录用户名为："+user.getName());
             return true;
         }
         request.setAttribute("loginMsg", "您还未登录，请执行登录操作");

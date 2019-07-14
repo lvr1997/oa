@@ -41,7 +41,7 @@
     		$('#tt').tabs('add',{
     			id:id,
     			title: name,
-    			content: '<div style="width:100%;height:100%;"><iframe class="page-iframe" src="/'+url+'" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe></div>',
+    			content: '<div style="width:100%;height:100%;"><iframe class="page-iframe" src="'+url+'" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe></div>',
     			closable: true
     		});
     	}
@@ -149,21 +149,23 @@
                 </h2>
 				<!-- 展示系统左侧权限树  -->
                 <ul class="sider-nav" id="sider-nav">
+                    <#list menuOperas as firstModule, secondModules>
                     <li>
                         <a href="javascript:;" >
                             <span class="iconfont sider-nav-icon">&#xe611;</span>
-                            <span class="sider-nav-title">系统管理</span><#--${userModule.firstModule.name}-->
+                            <span class="sider-nav-title">${(firstModule.name)!}</span><#--${userModule.firstModule.name}-->
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
+                             <#list secondModules  as module>
 
-                                <li><a href="javascript:addPanel('0001', 'identity/user/selectUser', '用户管理')">用户管理</a></li>
-                                 <li><a href="javascript:addPanel('0002', 'identity/role/selectRole', '角色管理')">角色管理</a></li>
-                                <li><a href="javascript:addPanel('0003', 'identity/module/mgrModule', '菜单管理')">菜单管理</a></li>
-
+                                <li><a href="javascript:addPanel('${(module.code)!}', '${(module.url)!}', '${(module.name)!}')">${(module.name)!}</a></li>
+                                <#-- <li><a href="javascript:addPanel('0002', 'identity/role/selectRole', '角色管理')">角色管理</a></li>
+                                <li><a href="javascript:addPanel('0003', 'identity/module/mgrModule', '菜单管理')">菜单管理</a></li> -->
+                             </#list>
                         </ul>
                     </li>
-                  	  	    
+                    </#list>
                   	  <#--	    <c:forEach items="${userPopedomModules}" var="userModule">
                   	  	    	<li>
 		                  	  	    <a href="javascript:;" >
@@ -178,8 +180,6 @@
 			                        </ul>
                   	  	        </li>
                   	  	    </c:forEach>-->
-	                      
-                        
                  </ul> 
             </div>
 

@@ -1,17 +1,18 @@
 package com.lr.oa.oa.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.lr.oa.oa.entity.User;
 import com.lr.oa.oa.service.IdentityService;
 import com.lr.oa.oa.utils.PageModel;
 import com.lr.oa.oa.utils.constant.ConstantUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -34,6 +35,11 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String  loginUser(@RequestParam("userId")String userId,@RequestParam("passWord")String passWord,@RequestParam("vcode")String vcode){
+        //添加用户认证信息
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(userId, passWord);
+        //进行验证
+        subject.login(usernamePasswordToken);
         String result= identityService.userLogin(userId,passWord,vcode);
         return  result;
     }

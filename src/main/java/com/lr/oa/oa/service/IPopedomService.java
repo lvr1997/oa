@@ -19,5 +19,11 @@ public interface IPopedomService {
     List<String> findOperaCodeByRoleIdAndModuleCode(Long id, String code);
 
 
+    /**
+     * 绑定操作
+     * @param code
+     * @param codes
+     * @param id
+     */
     void bindOpera(String code, String codes, Long id);
 }

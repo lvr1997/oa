@@ -173,8 +173,12 @@
 						</td>
 						<td>	
 						<button type="submit" id="selectUser" class="btn btn-info"><span class="glyphicon glyphicon-search"></span>&nbsp;查询</button>
-						<a  id="addUser" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;添加</a>
-					    <a  id="deleteUser" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+						<@perm url="user:addUser">
+							<a  id="addUser" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;添加</a>
+						</@perm>
+                        <@perm url="user:deleteUser">
+                            <a  id="deleteUser" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+						</@perm>
 					 </td>
 					</tr>
 					</tbody>
@@ -222,8 +226,12 @@
                             </td>
                             <td>${(user.checker)!}</td>
                             <td>
-                                <span id="updateUser_${(user_index)!}"  class="label label-info"><a href="javascript:updateUser('${(user.userId)! }')" style="color: white;">修改</a></span>
-                                <span id="preUser_${(user_index)!}" class="label label-success"><a href="javascript:preUser('${(user.userId)! }')"  style="color: white;">预览</a></span>
+								<@perm url="user:updateUser">
+									<span id="updateUser_${(user_index)!}"  class="label label-info"><a href="javascript:updateUser('${(user.userId)! }')" style="color: white;">修改</a></span>
+								</@perm>
+								<@perm url="user:preUser">
+								    <span id="preUser_${(user_index)!}" class="label label-success"><a href="javascript:preUser('${(user.userId)! }')"  style="color: white;">预览</a></span>
+								</@perm>
                             </td>
                         </tr>
 					</#list>

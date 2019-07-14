@@ -11,6 +11,12 @@
     <result column="MODIFIER" jdbcType="VARCHAR" property="modifier" />
     <result column="delFlag" jdbcType="VARCHAR" property="delflag" />
   </resultMap>
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select  ur.ROLE_ID ,r.NAME,ur.USER_ID from  oa_id_role r inner join oa_id_user_role ur  on r.ID=ur.USER_ID where
+     ur.USER_ID=#{userId}
+
+  </select>
+
   <select id="selectRole" resultMap="BaseResultMap">
     select
       <include refid="Base_Column_List" />

@@ -29,9 +29,23 @@ public interface PopedomMapper {
 
 
     /**
-     *
+     * 删除绑定的操作
      * @param code
      * @param id
      */
     void deleteBindOpera(@Param("code") String code,@Param("id") Long id);
+
+    /**
+     * 左侧菜单栏展示权限
+     * @param userId
+     * @return
+     */
+    List<String> findLeftMenuOperas(String userId);
+
+    /**
+     * //控制页面中的按钮（增加、删除、修改、查询、预览）的显示与隐藏
+     * @param userId
+     * @return
+     */
+    List<String> findPageOperasByUserId(String userId);
 }

@@ -19,8 +19,9 @@ public interface RoleMapper {
 
     int updateByPrimaryKey(Role record);
 
-     List<Role> selectRole();
-
+    List<Role> selectRole();
 
     void unBindUser(@Param("roleId") long roleId,@Param("uid") String uid);
+
+    List<Role> selectByUserId(@Param("userId") String  userId);
 }

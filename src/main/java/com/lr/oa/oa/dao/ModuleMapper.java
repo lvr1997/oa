@@ -24,8 +24,21 @@ public interface ModuleMapper {
      */
     List<Module> loadAllModule();
 
+    /**
+     * 根据父模块查找子模块
+     * @param code
+     * @param codeLength
+     * @return
+     */
     List<Module> getModulesByPcode(@Param("code") String code, @Param("codeLength")Integer codeLength);
 
-
+    /**
+     * 加载三级模块
+     * @param code
+     * @param i
+     * @return
+     */
     List<Module> loadThirdModule( @Param("code") String code ,@Param("i") int i );
+
+
 }

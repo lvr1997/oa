@@ -7,6 +7,7 @@ import com.lr.oa.oa.utils.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -57,6 +58,13 @@ public interface IdentityService {
     int deleteUser(String userIds);
 
     /**
+     * 根据用户id查询用户
+     * @param userId
+     * @return
+     */
+    User selectByPrimaryKey(String userId);
+
+    /**
      * 通过角色id查询用户
      * @param id
      * @return
@@ -96,4 +104,16 @@ public interface IdentityService {
      * @return
      */
     List<Module> loadThirdModule(String code);
+
+    /**
+     * 查询系统左侧菜单栏
+     * @return
+     */
+    Map<Module,List<Module>> findLeftMenuOperas();
+
+    /**
+     * 根据用户id查询用户绑定的操作权限
+     * @return
+     */
+    List<String> findPageOperasByUserId();
 }

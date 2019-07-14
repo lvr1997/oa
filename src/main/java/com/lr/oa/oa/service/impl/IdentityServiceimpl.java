@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +38,9 @@ public class IdentityServiceimpl implements IdentityService {
 
     @Resource
     private ModuleMapper moduleMapper;
+
+    @Resource
+    private  PopedomMapper popedomMapper;
 
 
 
@@ -118,6 +123,18 @@ public class IdentityServiceimpl implements IdentityService {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    /**
+     * 根据用户id查询用户
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public User selectByPrimaryKey(String userId) {
+
+        return userMapper.selectByPrimaryKey(userId);
     }
 
     @Override
@@ -218,5 +235,57 @@ public class IdentityServiceimpl implements IdentityService {
         List<Module> models= moduleMapper.loadThirdModule(code,code.length()+4);
         return models;
     }
+
+    @Override
+    public Map<Module, List<Module>> findLeftMenuOperas() {
+
+        User user=(User)ConstantUtils.getSession().getAttribute(ConstantUtils.SESSION_USER);
+        List<String> secondCodes =   popedomMapper.findLeftMenuOperas(user.getUserId());
+
+        Map<Module, List<Module>> maps=new LinkedHashMap<>();
+         if(secondCodes !=null && secondCodes.size()>0){
+             //定义List集合用于存放二级模块
+             List<Module> secondModules = null;
+             for(String secondcode:secondCodes){
+                 //获取一级模块的code
+                 String firstcode  = secondcode.substring(0,4);
+                 //获取一级模块信息
+                 Module firstModule=  moduleMapper.selectByPrimaryKey(firstcode);
+                 if(!maps.containsKey(firstModule)){
+                    secondModules=new ArrayList<>();
+                    maps.put(firstModule,secondModules);
+                 }
+
+                 //根据二级模块的code获取二级模块
+                 Module module= moduleMapper.selectByPrimaryKey(secondcode);
+                 secondModules.add(module);
+             }
+         }
+
+        return maps;
+    }
+
+    @Override
+    public List<String> findPageOperasByUserId() {
+        try {
+            List<String> operas=new ArrayList<>();
+            User user=(User)ConstantUtils.getSession().getAttribute(ConstantUtils.SESSION_USER);
+            String userId=user.getUserId();
+            List<String> thirdCodes= popedomMapper.findPageOperasByUserId(userId);
+            if(thirdCodes!=null&& thirdCodes.size()>0){
+              for(String code:thirdCodes){
+                Module mo=   moduleMapper.selectByPrimaryKey(code);
+                  operas.add(mo.getUrl());
+              }
+
+            }
+            return  operas;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
 }
